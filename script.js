@@ -342,10 +342,10 @@ function renderSquaresHome() {
             <div class="level-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
                 ${createStatCard('rapid', 'Rapid (10 Qs)', 'Random Sample')}
                 ${createStatCard('absolute', 'Absolute (60 Qs)', 'All Squares & Cubes')}
-                ${createStatCard('sq_rand', 'Squares Random', 'Squares 1-40 (Shuffled)')}
                 ${createStatCard('sq_ord', 'Squares Ordered', 'Squares 1-40 (In Order)')}
-                ${createStatCard('cb_rand', 'Cubes Random', 'Cubes 1-20 (Shuffled)')}
+                ${createStatCard('sq_rand', 'Squares Random', 'Squares 1-40 (Shuffled)')}
                 ${createStatCard('cb_ord', 'Cubes Ordered', 'Cubes 1-20 (In Order)')}
+                ${createStatCard('cb_rand', 'Cubes Random', 'Cubes 1-20 (Shuffled)')}
             </div>
             <div class="actions-row" style="margin-top: 3rem;">
                 <button class="action-btn secondary" onclick="renderMainMenu()">Main Menu</button>
