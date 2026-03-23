@@ -17,21 +17,56 @@ let startTime = 0;
 
 const appDiv = document.getElementById('app');
 
+function getStats() {
+    const defaultStats = {};
+    Object.keys(LEVELS).forEach(lvl => {
+        defaultStats[lvl] = { plays: 0, avgTime: null };
+    });
+    try {
+        const stored = localStorage.getItem('additionTrainerStats');
+        if (stored) {
+            return { ...defaultStats, ...JSON.parse(stored) };
+        }
+    } catch (e) {
+        console.error("Could not read stats", e);
+    }
+    return defaultStats;
+}
+
+function updateStats(level, newTime) {
+    const stats = getStats();
+    const lvlStats = stats[level] || { plays: 0, avgTime: null };
+    const totalPlays = lvlStats.plays;
+    const oldAvg = lvlStats.avgTime || 0;
+    const newPlays = totalPlays + 1;
+    const newAvg = totalPlays === 0 ? newTime : ((oldAvg * totalPlays) + newTime) / newPlays;
+    stats[level] = { plays: newPlays, avgTime: newAvg };
+    localStorage.setItem('additionTrainerStats', JSON.stringify(stats));
+    return { oldAvg: lvlStats.avgTime, newAvg: newAvg, plays: newPlays };
+}
+
 function init() {
     renderHome();
 }
 
 function renderHome() {
+    const stats = getStats();
     appDiv.innerHTML = `
         <div class="glass-panel">
             <h1> Mental Addition Trainer </h1>
             <div class="level-grid">
-                ${Object.keys(LEVELS).map(level => `
+                ${Object.keys(LEVELS).map(level => {
+                    const lStats = stats[level];
+                    const statText = lStats && lStats.plays > 0 
+                        ? `<p style="color: var(--primary); font-weight: bold; margin-top: 0.5rem; font-size: 1rem;">Played: ${lStats.plays} | Avg: ${lStats.avgTime.toFixed(2)}s</p>`
+                        : `<p style="color: grey; font-size: 1rem; margin-top: 0.5rem;">Not played yet</p>`;
+                    return `
                     <div class="level-card" onclick="startLevel(${level})">
                         <h2>Level ${level}</h2>
                         <p>${LEVELS[level].count} numbers under ${LEVELS[level].max_val}</p>
+                        ${statText}
                     </div>
-                `).join('')}
+                `}).join('')}
             </div>
         </div>
     `;
@@ -161,18 +196,36 @@ function renderCircle(nums, currentStartPoint) {
 }
 
 function renderSummary() {
+    const totalTime = results.reduce((acc, r) => acc + parseFloat(r.time), 0);
+    const { oldAvg, newAvg } = updateStats(currentLevel, totalTime);
+
     let html = `
         <div class="glass-panel">
             <h1>Level ${currentLevel} Summary</h1>
             
             <div class="summary-details">
-                <div class="detail-item">
+                <div class="detail-item" style="flex: 2;">
                     <div class="detail-label">Full Sequence</div>
-                    <div class="detail-value" style="font-size: 1.4rem;">${numbers.join(' + ')}</div>
+                    <div class="detail-value" style="font-size: 2rem;">${numbers.join(' + ')}</div>
                 </div>
                 <div class="detail-item">
                     <div class="detail-label">Correct Sum</div>
                     <div class="detail-value text-success">${correctSum}</div>
+                </div>
+            </div>
+
+            <div class="summary-details" style="margin-top: -1.5rem;">
+                <div class="detail-item">
+                    <div class="detail-label">Previous Avg</div>
+                    <div class="detail-value" style="color: var(--text-muted); font-size: 1.8rem;">${oldAvg ? oldAvg.toFixed(2) + 's' : '---'}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Total Time</div>
+                    <div class="detail-value" style="font-size: 1.8rem;">${totalTime.toFixed(2)}s</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">New Avg</div>
+                    <div class="detail-value" style="color: var(--primary); font-size: 1.8rem;">${newAvg.toFixed(2)}s</div>
                 </div>
             </div>
             
