@@ -26,9 +26,9 @@ body {
 
 #app {
   width: 100%;
-  max-width: 1000px;
-  min-height: 750px;
-  padding: 2.5rem;
+  max-width: 850px;
+  min-height: 600px;
+  padding: 2rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@ body {
   border: 1px solid var(--border-color);
   box-shadow: 0 0 10px var(--shadow-color);
   border-radius: 0;
-  padding: 4rem;
+  padding: 3rem;
   position: relative;
 }
 
@@ -54,9 +54,9 @@ body {
 
 h1 {
   text-align: center;
-  font-size: 4rem;
+  font-size: 2.5rem;
   margin-top: 0;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   color: var(--text-main);
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -65,15 +65,15 @@ h1 {
 
 .level-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
 }
 
 .level-card {
   background: #000;
   border: 1px solid var(--text-muted);
   border-radius: 0;
-  padding: 2.5rem 2rem;
+  padding: 2rem 1.5rem;
   cursor: pointer;
   text-align: center;
   transition: all 0.2s;
@@ -88,7 +88,7 @@ h1 {
 
 .level-card h2 {
   margin: 0 0 0.5rem 0;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: var(--text-main);
   font-weight: bold;
 }
@@ -96,7 +96,7 @@ h1 {
 .level-card p {
   margin: 0;
   color: var(--text-muted);
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 .game-container {
@@ -107,28 +107,28 @@ h1 {
 
 .game-container h2 {
   color: var(--text-muted);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   margin-top: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .circle-container {
   position: relative;
-  width: 450px;
-  height: 450px;
-  margin: 4rem auto;
+  width: 320px;
+  height: 320px;
+  margin: 3rem auto;
 }
 
 .number-orb {
   position: absolute;
-  width: 80px;
-  height: 80px;
+  width: 64px;
+  height: 64px;
   background: #000;
   border: 1px solid var(--text-muted);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1.25rem;
   font-weight: bold;
   color: var(--text-muted);
   transform: translate(-50%, -50%);
@@ -146,18 +146,18 @@ h1 {
 
 .input-section {
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
   width: 100%;
 }
 
 .input-section p {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   color: var(--text-muted);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .start-point-highlight {
-  font-size: 4.5rem;
+  font-size: 3rem;
   font-weight: bold;
   color: var(--primary);
   display: block;
@@ -168,10 +168,10 @@ h1 {
 .sum-input {
   background: #000;
   border: 1px solid var(--text-muted);
-  padding: 1.5rem 2rem;
+  padding: 1rem 1.5rem;
   color: var(--text-main);
-  font-size: 2.5rem;
-  width: 320px;
+  font-size: 2rem;
+  width: 240px;
   text-align: center;
   outline: none;
   font-family: inherit;
@@ -187,12 +187,12 @@ h1 {
 .submit-btn, .action-btn {
   background: transparent;
   border: 1px solid var(--primary);
-  padding: 1.5rem 3rem;
+  padding: 1.2rem 2.5rem;
   color: var(--text-main);
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
   transition: all 0.2s;
   font-family: inherit;
   text-transform: uppercase;
@@ -224,16 +224,15 @@ h1 {
 .summary-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 3rem 0;
+  margin: 2rem 0;
   background: #000;
   border: 1px solid var(--border-color);
 }
 
 .summary-table th, .summary-table td {
-  padding: 1.5rem 1.25rem;
+  padding: 1.25rem 1rem;
   text-align: center;
   border-bottom: 1px solid var(--text-muted);
-  font-size: 1.2rem;
 }
 
 .summary-table tr:last-child td {
@@ -244,7 +243,6 @@ h1 {
   color: var(--text-main);
   text-transform: uppercase;
   background: rgba(0, 255, 0, 0.05);
-  font-size: 1rem;
 }
 
 .text-success { color: var(--primary); text-shadow: 0 0 5px var(--shadow-color); }
@@ -252,14 +250,14 @@ h1 {
 
 .summary-details {
   display: flex;
-  gap: 2rem;
-  margin-bottom: 3rem;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .detail-item {
   flex: 1;
   background: #000;
-  padding: 2rem;
+  padding: 1.5rem;
   border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
@@ -276,14 +274,14 @@ h1 {
 }
 
 .detail-label {
-  font-size: 1.2rem;
+  font-size: 0.875rem;
   color: var(--text-muted);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   text-transform: uppercase;
 }
 
 .detail-value {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   color: var(--text-main);
   text-align: center;
   word-break: break-all;

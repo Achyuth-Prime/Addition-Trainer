@@ -26,9 +26,9 @@ body {
 
 #app {
   width: 100%;
-  max-width: 1000px;
-  min-height: 750px;
-  padding: 2.5rem;
+  max-width: 850px;
+  min-height: 600px;
+  padding: 2rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -39,14 +39,14 @@ body {
   border: 2px solid var(--neon-cyan);
   box-shadow: 0 0 15px var(--neon-cyan), inset 0 0 15px var(--neon-cyan);
   border-radius: 20px;
-  padding: 4rem;
+  padding: 3rem;
 }
 
 h1 {
   text-align: center;
-  font-size: 4rem;
+  font-size: 3rem;
   margin-top: 0;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   color: var(--neon-pink);
   text-shadow: 0 0 5px var(--neon-pink), 0 0 20px var(--neon-pink);
   text-transform: uppercase;
@@ -55,15 +55,15 @@ h1 {
 
 .level-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
 }
 
 .level-card {
   background: #000;
   border: 2px solid var(--neon-pink);
   border-radius: 10px;
-  padding: 2.5rem 2rem;
+  padding: 2rem 1.5rem;
   cursor: pointer;
   text-align: center;
   box-shadow: 0 0 10px var(--neon-pink);
@@ -78,7 +78,7 @@ h1 {
 
 .level-card h2 {
   margin: 0 0 0.75rem 0;
-  font-size: 2rem;
+  font-size: 1.75rem;
   color: var(--neon-cyan);
   text-shadow: 0 0 10px var(--neon-cyan);
   text-transform: uppercase;
@@ -87,7 +87,7 @@ h1 {
 .level-card p {
   margin: 0;
   color: #ccc;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
 }
 
 .game-container {
@@ -100,21 +100,20 @@ h1 {
   color: var(--neon-yellow);
   text-shadow: 0 0 10px var(--neon-yellow);
   margin-top: 0;
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .circle-container {
   position: relative;
-  width: 450px;
-  height: 450px;
-  margin: 4rem auto;
+  width: 320px;
+  height: 320px;
+  margin: 3rem auto;
 }
 
 .number-orb {
   position: absolute;
-  width: 80px;
-  height: 80px;
+  width: 64px;
+  height: 64px;
   background: #000;
   border: 2px solid var(--neon-cyan);
   border-radius: 50%;
@@ -122,7 +121,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: var(--neon-cyan);
   text-shadow: 0 0 5px var(--neon-cyan);
@@ -141,18 +140,18 @@ h1 {
 
 .input-section {
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
   width: 100%;
 }
 
 .input-section p {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: #fff;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .start-point-highlight {
-  font-size: 4.5rem;
+  font-size: 3.5rem;
   font-weight: bold;
   color: var(--neon-yellow);
   text-shadow: 0 0 15px var(--neon-yellow), 0 0 30px var(--neon-yellow);
@@ -164,10 +163,10 @@ h1 {
   background: #000;
   border: 2px solid var(--neon-cyan);
   border-radius: 10px;
-  padding: 1.5rem 2rem;
+  padding: 1rem 1.5rem;
   color: var(--neon-cyan);
-  font-size: 2.5rem;
-  width: 320px;
+  font-size: 2rem;
+  width: 240px;
   text-align: center;
   outline: none;
   font-family: inherit;
@@ -186,11 +185,11 @@ h1 {
   border: 2px solid var(--neon-pink);
   border-radius: 10px;
   color: var(--neon-pink);
-  padding: 1.5rem 3rem;
-  font-size: 1.4rem;
+  padding: 1.2rem 2.5rem;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
   font-family: inherit;
   text-transform: uppercase;
   box-shadow: 0 0 10px var(--neon-pink), inset 0 0 5px var(--neon-pink);
@@ -228,7 +227,7 @@ h1 {
 .summary-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 3rem 0;
+  margin: 2rem 0;
   background: #000;
   border: 2px solid var(--neon-cyan);
   box-shadow: 0 0 15px var(--neon-cyan);
@@ -237,10 +236,9 @@ h1 {
 }
 
 .summary-table th, .summary-table td {
-  padding: 1.5rem 1.25rem;
+  padding: 1.25rem 1rem;
   text-align: center;
   border-bottom: 1px solid rgba(0, 255, 255, 0.3);
-  font-size: 1.2rem;
 }
 
 .summary-table th {
@@ -248,7 +246,6 @@ h1 {
   text-shadow: 0 0 10px var(--neon-pink);
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 1rem;
 }
 
 .text-success {
@@ -263,14 +260,14 @@ h1 {
 
 .summary-details {
   display: flex;
-  gap: 2rem;
-  margin-bottom: 3rem;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .detail-item {
   flex: 1;
   background: rgba(0, 0, 0, 0.8);
-  padding: 2rem;
+  padding: 1.5rem;
   border: 2px solid var(--neon-cyan);
   border-radius: 10px;
   display: flex;
@@ -281,15 +278,15 @@ h1 {
 }
 
 .detail-label {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   color: var(--neon-cyan);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   text-transform: uppercase;
   text-shadow: 0 0 5px var(--neon-cyan);
 }
 
 .detail-value {
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #fff;
   text-align: center;
   word-break: break-all;
