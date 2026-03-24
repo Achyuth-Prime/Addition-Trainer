@@ -105,15 +105,15 @@ h1 {
 
 .circle-container {
   position: relative;
-  width: 320px;
-  height: 320px;
+  width: 500px;
+  height: 500px;
   margin: 3rem auto;
 }
 
 .number-orb {
   position: absolute;
-  width: 64px;
-  height: 64px;
+  width: 85px;
+  height: 85px;
   background: #000;
   border: 2px solid var(--neon-cyan);
   border-radius: 50%;
@@ -121,7 +121,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 3rem;
   font-weight: bold;
   color: var(--neon-cyan);
   text-shadow: 0 0 5px var(--neon-cyan);
@@ -286,7 +286,7 @@ h1 {
 }
 
 .detail-value {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #fff;
   text-align: center;
   word-break: break-all;
