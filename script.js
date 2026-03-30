@@ -68,6 +68,9 @@ function renderMainMenu() {
                 <div class="level-card" onclick="renderSquaresHome()">
                     <h2>⏹️ Squares & Cubes Trainer</h2>
                 </div>
+                <div class="level-card" onclick="renderFactorialsHome()">
+                    <h2>❗ Factorials Trainer</h2>
+                </div>
             </div>
         </div>
     `;
@@ -542,3 +545,210 @@ function renderSquaresSummary() {
 
 // Start app
 init();
+
+// ==========================================
+// FACTORIALS TRAINER
+// ==========================================
+let fcMode = null;
+let fcQuestions = [];
+let fcResults = [];
+let fcWrongCount = 0;
+let fcCurrentQ = null;
+let fcQuestionStartTime = 0;
+let fcIsReviewing = false;
+
+function getFactorialsData() {
+    const questions = [];
+    let fact = 1;
+    questions.push({ q: '0!', a: 1 });
+    for (let i = 1; i <= 10; i++) {
+        fact *= i;
+        questions.push({ q: `${i}!`, a: fact });
+    }
+    return questions;
+}
+
+function renderFactorialsHome() {
+    appMode = 'factorials';
+    const stats = getStats();
+    
+    function createStatCard(modeId, title, desc) {
+        const s = stats[`fc_${modeId}`] || { plays: 0, avgTime: null, lastWrong: 0 };
+        const text = s.plays > 0 
+            ? `<p style="color: var(--primary); font-weight: bold; margin-top: 0.5rem; font-size: 1rem;">Played: ${s.plays} | Avg: ${s.avgTime.toFixed(2)}s <br> PIA: ${s.lastWrong || 0}</p>`
+            : `<p style="color: grey; font-size: 1rem; margin-top: 0.5rem;">Not played yet</p>`;
+        return `
+            <div class="level-card" onclick="startFactorialsLevel('${modeId}')">
+                <h2>${title}</h2>
+                <p>${desc}</p>
+                ${text}
+            </div>
+        `;
+    }
+
+    appDiv.innerHTML = `
+        <div class="glass-panel">
+            <h1> Factorials </h1>
+            <div class="level-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                ${createStatCard('rand', 'Random (11 Qs)', 'Factorials 0-10 (Shuffled)')}
+            </div>
+            <div class="actions-row" style="margin-top: 3rem;">
+                <button class="action-btn secondary" onclick="renderMainMenu()">Main Menu</button>
+            </div>
+        </div>
+    `;
+}
+
+function startFactorialsLevel(mode) {
+    fcMode = mode;
+    fcWrongCount = 0;
+    fcResults = [];
+
+    const factorials = getFactorialsData();
+    if (mode === 'rand') {
+        fcQuestions = shuffle([...factorials]);
+    }
+    
+    renderFactorialsGame();
+}
+
+function renderFactorialsGame() {
+    if (fcQuestions.length === 0) {
+        renderFactorialsSummary();
+        return;
+    }
+    
+    if (!fcIsReviewing) {
+        fcCurrentQ = fcQuestions.shift();
+    }
+    
+    const modeTitle = 'Factorials Random';
+
+    let gameUI = document.getElementById('fc-game-ui');
+
+    if (!gameUI) {
+        appDiv.innerHTML = `
+            <div id="fc-game-ui" class="glass-panel game-container" style="animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
+                <h2 id="fc-header">${modeTitle} Mode - ${fcQuestions.length + 1} remaining</h2>
+                
+                <div id="fc-question" style="font-size: 6rem; font-weight: bold; margin: 3rem 0; color: var(--text-main); text-shadow: 0 0 20px var(--primary-glow);">${fcCurrentQ.q} = ?</div>
+                
+                <div class="input-section">
+                    <p id="fc-feedback-text" style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 2rem; display: none;">Memorize it. We'll ask you this again later.</p>
+                    <form id="fc-answer-form">
+                        <input type="number" id="fc-input" class="sum-input" autocomplete="off" autofocus required placeholder="Answer">
+                        <br>
+                        <button type="submit" class="submit-btn" id="fc-submit-btn">Submit Answer</button>
+                    </form>
+                </div>
+            </div>
+        `;
+        
+        const form = document.getElementById('fc-answer-form');
+        const input = document.getElementById('fc-input');
+        
+        setTimeout(() => {
+            input.focus();
+            fcQuestionStartTime = performance.now();
+        }, 100);
+
+        form.onsubmit = (e) => {
+            e.preventDefault();
+            const inputEl = document.getElementById('fc-input');
+            const qEl = document.getElementById('fc-question');
+            const btnEl = document.getElementById('fc-submit-btn');
+            const fbEl = document.getElementById('fc-feedback-text');
+            const containerEl = document.getElementById('fc-game-ui');
+            
+            if (fcIsReviewing) {
+                fcIsReviewing = false;
+                inputEl.value = '';
+                btnEl.innerText = 'Submit Answer';
+                fbEl.style.display = 'none';
+                
+                containerEl.style.borderColor = '';
+                containerEl.style.boxShadow = '';
+                qEl.style.color = '';
+                qEl.style.textShadow = '';
+                
+                fcQuestionStartTime = performance.now();
+                renderFactorialsGame(); 
+                return;
+            }
+
+            const endTime = performance.now();
+            const t = ((endTime - fcQuestionStartTime) / 1000);
+            const answer = parseInt(inputEl.value);
+            
+            if (answer === fcCurrentQ.a) {
+                fcResults.push(t);
+                inputEl.value = '';
+                fcQuestionStartTime = performance.now();
+                renderFactorialsGame(); 
+            } else {
+                fcWrongCount++;
+                fcQuestions.push(fcCurrentQ); // Re-queue at the end
+                
+                fcIsReviewing = true;
+                containerEl.style.borderColor = 'var(--error)';
+                containerEl.style.boxShadow = '0 0 30px rgba(255,0,0,0.3)';
+                
+                qEl.innerHTML = `${fcCurrentQ.q} = <span style="color: var(--success); text-shadow: 0 0 20px var(--success);">${fcCurrentQ.a}</span>`;
+                
+                fbEl.style.display = 'block';
+                inputEl.value = ''; 
+                btnEl.innerText = 'Got it! (Press Enter)';
+            }
+        };
+    } else {
+        if (!fcIsReviewing) {
+            document.getElementById('fc-header').innerText = `${modeTitle} Mode - ${fcQuestions.length + 1} remaining`;
+            document.getElementById('fc-question').innerText = `${fcCurrentQ.q} = ?`;
+        }
+    }
+}
+
+function renderFactorialsSummary() {
+    const totalTime = fcResults.reduce((a, b) => a + b, 0);
+    const statKey = `fc_${fcMode}`;
+    const { oldAvg, newAvg } = updateStats(statKey, totalTime, fcWrongCount);
+
+    const modeTitle = 'Factorials Random';
+
+    appDiv.innerHTML = `
+        <div class="glass-panel">
+            <h1>${modeTitle} Summary</h1>
+            
+            <div class="summary-details">
+                <div class="detail-item">
+                    <div class="detail-label">Questions Solved</div>
+                    <div class="detail-value text-success">${fcResults.length}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Mistakes Made</div>
+                    <div class="detail-value text-error">${fcWrongCount}</div>
+                </div>
+            </div>
+            
+            <div class="summary-details" style="margin-top: -1.5rem;">
+                <div class="detail-item">
+                    <div class="detail-label">Old Avg</div>
+                    <div class="detail-value" style="color: var(--text-muted); font-size: 1.8rem;">${oldAvg ? oldAvg.toFixed(2) + 's' : '---'}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">This Round</div>
+                    <div class="detail-value" style="font-size: 1.8rem;">${totalTime.toFixed(2)}s</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">New Avg</div>
+                    <div class="detail-value" style="color: var(--primary); font-size: 1.8rem;">${newAvg.toFixed(2)}s</div>
+                </div>
+            </div>
+            
+            <div class="actions-row">
+                <button class="action-btn" onclick="startFactorialsLevel('${fcMode}')">Retry</button>
+                <button class="action-btn secondary" onclick="renderFactorialsHome()">Factorials Menu</button>
+            </div>
+        </div>
+    `;
+}
